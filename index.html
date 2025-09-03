@@ -9,7 +9,6 @@
     * { box-sizing: border-box; margin:0; padding:0; font-family: 'Nunito', sans-serif;}
     body { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
-
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
     /* Hero Section */
@@ -111,22 +110,32 @@
       constructor(){
         this.x = random(0,width);
         this.y = random(0,height);
-        this.size = random(20,40);
-        this.speedX = random(-0.5,0.5);
-        this.speedY = random(-0.3,0.3);
+        this.size = random(20,50);
+        this.speedX = random(-0.3,0.3);
+        this.speedY = random(-0.2,0.2);
+        this.angle = random(0,2*Math.PI);
+        this.rotationSpeed = random(-0.02,0.02);
+        this.opacity = random(0.5,1);
         this.img = new Image();
-        this.img.src = 'https://i.postimg.cc/4d6SxJQ6/duck.png'; // 小鸭子图片链接
+        // 透明小鸭子 PNG
+        this.img.src = 'https://upload.wikimedia.org/wikipedia/commons/3/32/Yellow_duck_icon.png';
       }
       update(){
         this.x += this.speedX;
         this.y += this.speedY;
-        if(this.x>width) this.x=0;
-        if(this.x<0) this.x=width;
-        if(this.y>height) this.y=0;
-        if(this.y<0) this.y=height;
+        this.angle += this.rotationSpeed;
+        if(this.x > width) this.x = 0;
+        if(this.x < 0) this.x = width;
+        if(this.y > height) this.y = 0;
+        if(this.y < 0) this.y = height;
       }
       draw(){
-        ctx.drawImage(this.img,this.x,this.y,this.size,this.size);
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.translate(this.x + this.size/2, this.y + this.size/2);
+        ctx.rotate(this.angle);
+        ctx.drawImage(this.img, -this.size/2, -this.size/2, this.size, this.size);
+        ctx.restore();
       }
     }
 
