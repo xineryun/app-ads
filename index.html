@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // 获取 Cookie 函数
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : '';
+    }
+
+    // === 初始化 FB Pixel ===
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    const pixelId = 000; // 替换为你的 FB Pixel ID
+    const external_id = getCookie('__fbp_token') || undefined;
+    fbq('init', pixelId, { external_id });
+    fbq('track', 'PageView');
+
+    // === 跳转配置 JSON ===
+    const redirectConfig = {
+      "/p/walmart.html": "https://www.lustrooa.com/products/8171", // 固定页面跳转
+      "001": "https://www.lustrooa.com/detail/459163",
+      "002": "https://www.lustrooa.com/detail/459164",
+      "003": "https://www.lustrooa.com/detail/459024",
+      "004": "https://www.lustrooa.com/detail/459161",
+      "005": "https://www.lustrooa.com/detail/459009",
+      "006": "https://www.lustrooa.com/detail/459006",
+      "007": "https://www.lustrooa.com/detail/458994",
+      "008": "https://www.lustrooa.com/detail/458983",
+      "009": "https://www.lustrooa.com/detail/458913",
+      "010": "https://www.lustrooa.com/detail/458873",
+      "011": "https://www.lustrooa.com/detail/459087",
+      "012": "https://www.lustrooa.com/detail/459086",
+      "013": "https://www.lustrooa.com/detail/459085",
+      "014": "https://www.lustrooa.com/detail/459081",
+      "015": "https://www.lustrooa.com/detail/459080",
+      "016": "https://www.lustrooa.com/detail/459065",
+      "017": "https://www.lustrooa.com/detail/459065",
+      "018": "https://www.lustrooa.com/detail/459078",
+      "019": "https://www.lustrooa.com/detail/458806",
+      "020": "https://www.lustrooa.com/detail/458670",
+      "021": "https://www.lustrooa.com/detail/458660",
+      "022": "https://www.lustrooa.com/detail/458649",
+      "023": "https://www.lustrooa.com/detail/458637",
+      "024": "https://www.lustrooa.com/detail/459272",
+      "025": "https://www.lustrooa.com/detail/458986",
+      "026": "https://www.lustrooa.com/detail/458858",
+      "1000": "https://www.lustrooa.com/detail/458503",
+      "1001": "https://www.lustrooa.com/detail/458496",
+      "1002": "https://www.lustrooa.com/detail/458491",
+      "1003": "https://www.lustrooa.com/detail/458480",
+      "1004": "https://www.lustrooa.com/detail/458345",
+      "1005": "https://www.lustrooa.com/detail/458475",
+      "1006": "https://www.lustrooa.com/detail/458472",
+      "1007": "https://www.lustrooa.com/detail/458398",
+      "1008": "https://www.lustrooa.com/detail/458394",
+      "1009": "https://www.lustrooa.com/detail/458391",
+      "1010": "https://www.lustrooa.com/detail/458381",
+      "1011": "https://www.lustrooa.com/detail/458379",
+      "1012": "https://www.lustrooa.com/detail/458365",
+      "1013": "https://www.lustrooa.com/detail/458351",
+      "1014": "https://www.lustrooa.com/detail/458346"
+    };
+
+    // === 执行跳转逻辑 ===
+    window.addEventListener('load', () => {
+      const pathname = window.location.pathname;
+      const pid = new URLSearchParams(window.location.search).get('pid');
+      let target = null;
+
+      // 优先 PID 映射跳转
+      if (pid && redirectConfig[pid]) {
+        target = redirectConfig[pid];
+      } 
+      // PID 不存在或无对应映射，再检查固定页面跳转
+      else if (redirectConfig[pathname]) {
+        target = redirectConfig[pathname];
+      }
+
+      if (target) {
+        const a = document.createElement('a');
+        a.href = target;
+        a.rel = 'noreferrer noopener';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+      } else {
+        window.location.replace('about:blank'); // 无效 PID 或路径
+      }
+    });
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=about:blank">
+  </noscript>
+</head>
+<body>
+<!-- 页面空白 -->
+</body>
+</html>
