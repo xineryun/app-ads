@@ -2,10 +2,154 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Five Ducks - Fun Gomoku Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family: 'Nunito', sans-serif;}
+    body { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
 
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero Section */
+    .hero { display:flex; flex-direction: column; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:50px 20px; position: relative; overflow: hidden; }
+    .hero h1 { font-size:3rem; background: linear-gradient(90deg, #ff8c00, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:20px; }
+    .hero p { font-size:1.2rem; margin-bottom:40px; max-width:700px; }
+    .btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 15px 40px; border-radius: 25px; font-size:1.1rem; font-weight:bold; color:#fff; border: 2px solid rgba(255,255,255,0.3); transition: all 0.3s ease; cursor:pointer; position: relative; overflow: hidden; }
+    .btn::after { content:""; position:absolute; top:0; left:-50%; width:50%; height:100%; background:rgba(255,255,255,0.5); transform: skewX(-20deg); transition: all 0.5s ease; }
+    .btn:hover::after { left:100%; }
+    .btn:hover { transform: translateY(-3px); }
+
+    /* Section Styles */
+    section { padding: 80px 0; position: relative; z-index: 1; }
+    .section-title { text-align:center; font-size:2.5rem; margin-bottom:40px; color:#ff6f61; }
+    .features, .rules, .about { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:30px; text-align:center; }
+
+    .feature-card, .rule-card, .about-card { background: rgba(255,255,255,0.2); backdrop-filter: blur(15px); padding:30px 20px; border-radius:20px; transition: transform 0.3s ease; cursor:pointer; }
+    .feature-card:hover, .rule-card:hover, .about-card:hover { transform: rotateX(5deg) rotateY(5deg) translateY(-10px); }
+
+    .feature-card h3, .rule-card h3, .about-card h3 { margin-bottom:15px; color:#ff8c00; }
+    .about p { font-size:1rem; color:#fff; line-height:1.6; }
+
+    footer { text-align:center; padding:40px 20px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+    footer p { font-size:1rem; color:#fff; }
+
+    @media (max-width:768px){ .hero h1{ font-size:2.2rem;} .hero p{ font-size:1rem; } }
+
+    /* 背景粒子 */
+    #particle-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+  </style>
 </head>
 <body>
-hello
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <canvas id="particle-canvas"></canvas>
+    <div class="container">
+      <h1>Five Ducks 🦆</h1>
+      <p>Experience the classic Gomoku game in a brand new playful way! Replace black and white pieces with cute little ducks and enjoy the fun and childlike vitality.</p>
+      <a href="https://www.amazon.com/gp/product/B0FNMFVFBV" class="btn" target="_blank">Download on Amazon</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+      <div class="features">
+        <div class="feature-card"><h3>Adorable Ducks</h3><p>Traditional black and white pieces are replaced by cute little ducks, making the game more lively and fun.</p></div>
+        <div class="feature-card"><h3>Classic Gomoku Rules</h3><p>Line up five ducks in a row horizontally, vertically, or diagonally to win the game.</p></div>
+        <div class="feature-card"><h3>Turn-Based Gameplay</h3><p>Two players take turns placing their ducks. Each turn only allows one duck placement on the board.</p></div>
+        <div class="feature-card"><h3>Draw Possibility</h3><p>If the board is full and neither player has five in a row, the game ends in a draw.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules Section -->
+  <section style="background: linear-gradient(135deg, #fcb69f, #ffecd2);">
+    <div class="container">
+      <h2 class="section-title">How to Play</h2>
+      <div class="rules">
+        <div class="rule-card"><h3>Step 1</h3><p>Take turns placing your own little duck on an empty intersection on the board.</p></div>
+        <div class="rule-card"><h3>Step 2</h3><p>Once placed, a duck cannot be moved or removed.</p></div>
+        <div class="rule-card"><h3>Step 3</h3><p>The first player to line up five ducks in a straight line wins!</p></div>
+        <div class="rule-card"><h3>Step 4</h3><p>If the board is filled and no player has five in a row, the game ends in a draw.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">About Us</h2>
+      <div class="about">
+        <div class="about-card"><h3>Our Mission</h3><p>We aim to bring joy and learning together by combining classic games with playful, child-friendly designs. Our goal is to create games that are fun, educational, and visually appealing.</p></div>
+        <div class="about-card"><h3>Our Vision</h3><p>To innovate traditional board games with interactive and immersive experiences that can be enjoyed by all ages, anywhere, anytime.</p></div>
+        <div class="about-card"><h3>Our Team</h3><p>Our team consists of passionate game developers, designers, and educators dedicated to creating high-quality and engaging applications for kids and families.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>© 2025 Five Ducks App. Download now on <a href="https://www.amazon.com/gp/product/B0FNMFVFBV" target="_blank" style="color: #ffd700;">Amazon</a></p>
+  </footer>
+
+  <!-- Particle Animation Script -->
+  <script>
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const particleCount = 50;
+    const particles = [];
+
+    function random(min,max){ return Math.random()*(max-min)+min; }
+
+    class Particle{
+      constructor(){
+        this.x = random(0,width);
+        this.y = random(0,height);
+        this.size = random(20,40);
+        this.speedX = random(-0.5,0.5);
+        this.speedY = random(-0.3,0.3);
+        this.img = new Image();
+        this.img.src = 'https://i.postimg.cc/4d6SxJQ6/duck.png'; // 小鸭子图片链接
+      }
+      update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x>width) this.x=0;
+        if(this.x<0) this.x=width;
+        if(this.y>height) this.y=0;
+        if(this.y<0) this.y=height;
+      }
+      draw(){
+        ctx.drawImage(this.img,this.x,this.y,this.size,this.size);
+      }
+    }
+
+    function init(){
+      for(let i=0;i<particleCount;i++){
+        particles.push(new Particle());
+      }
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,width,height);
+      particles.forEach(p=>{p.update();p.draw();});
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize',()=>{
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    init();
+    animate();
+  </script>
+
 </body>
 </html>
